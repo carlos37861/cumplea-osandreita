@@ -4,16 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Mis 30 Añitos · Andreita</title>
-<meta name="description" content="¡Estás invitad@ a celebrar los 30 añitos de Andreita! Jueves 01 de octubre, 7:00 p.m., Chorrillos.">
+<meta name="description" content="¡Estás invitad@ a celebrar los 30 añitos de Andreita! Jueves 01 de octubre, 8:00 p.m., Chorrillos.">
 <meta property="og:title" content="💜 Mis 30 Añitos · Andreita">
-<meta property="og:description" content="¡Toca el sobre y abre tu invitación! Jueves 01/10 · 7:00 p.m. · Chorrillos">
+<meta property="og:description" content="¡Toca el sobre y abre tu invitación! Jueves 01/10 · 8:00 p.m. · Chorrillos">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#b98cff">
-<link rel="preload" href="assets/fonts/Pacifico.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fredoka:wght@500;600;700&family=Pacifico&display=swap" rel="stylesheet">
 <style>
-@font-face{font-family:'Pacifico';src:url(assets/fonts/Pacifico.ttf) format('truetype');font-display:swap}
-@font-face{font-family:'Bungee';src:url(assets/fonts/Bungee.ttf) format('truetype');font-display:swap}
-@font-face{font-family:'Fredoka';src:url(assets/fonts/Fredoka.ttf) format('truetype');font-weight:300 700;font-display:swap}
 :root{
   --pink:#ff5caa; --lpink:#ffcde6; --lil:#b98cff; --purp:#843cd2; --gold:#f0be28;
   --mint:#78e6c8; --sky:#78c8ff; --dark:#46146e; --cream:#fffad2; --bg:#fff0f8;
@@ -219,7 +218,7 @@ body.locked{overflow:hidden}
 const CONFIG = {
   // Número de WhatsApp para confirmar (con código de país, sin + ni espacios). Ej: "51987654321"
   whatsapp: "",
-  fechaISO: "2026-10-01T19:00:00-05:00",
+  fechaISO: "2026-10-01T20:00:00-05:00",
   direccion: "Mz C11 Lote 3, Nueva Esparta, Chorrillos, Lima, Perú",
 };
 /* ============================ */
@@ -229,7 +228,7 @@ document.getElementById('wa').href = "https://wa.me/" + CONFIG.whatsapp + "?text
 document.getElementById('maps').href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(CONFIG.direccion);
 document.getElementById('cal').href = "https://calendar.google.com/calendar/render?action=TEMPLATE"
   + "&text=" + encodeURIComponent("Mis 30 Añitos · Andreita 🎉")
-  + "&dates=20261002T000000Z/20261002T050000Z"
+  + "&dates=20261002T010000Z/20261002T060000Z"
   + "&details=" + encodeURIComponent("¡Fiesta de los 30 añitos de Andreita!")
   + "&location=" + encodeURIComponent(CONFIG.direccion);
 
@@ -268,7 +267,7 @@ const cd = document.getElementById('cd');
 function tick(){
   const diff = target - Date.now();
   if (diff <= 0){
-    cd.innerHTML = diff > -6*3600e3 ? '<div class="today">🎉 ¡La fiesta es HOY! 🎉</div>' : '<div class="today">💜 ¡Gracias por celebrar conmigo! 💜</div>';
+    cd.innerHTML = diff > -8*3600e3 ? '<div class="today">🎉 ¡La fiesta es HOY! 🎉</div>' : '<div class="today">💜 ¡Gracias por celebrar conmigo! 💜</div>';
     return;
   }
   const d=Math.floor(diff/864e5), h=Math.floor(diff%864e5/36e5), m=Math.floor(diff%36e5/6e4), s=Math.floor(diff%6e4/1e3);
