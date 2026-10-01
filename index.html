@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mis 30 Añitos · Andreita</title>
+<meta name="description" content="¡Estás invitad@ a celebrar los 30 añitos de Andreita! Jueves 01 de octubre, 7:00 p.m., Chorrillos.">
+<meta property="og:title" content="💜 Mis 30 Añitos · Andreita">
+<meta property="og:description" content="¡Toca el sobre y abre tu invitación! Jueves 01/10 · 7:00 p.m. · Chorrillos">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#b98cff">
+<link rel="preload" href="assets/fonts/Pacifico.ttf" as="font" type="font/ttf" crossorigin>
+<style>
+@font-face{font-family:'Pacifico';src:url(assets/fonts/Pacifico.ttf) format('truetype');font-display:swap}
+@font-face{font-family:'Bungee';src:url(assets/fonts/Bungee.ttf) format('truetype');font-display:swap}
+@font-face{font-family:'Fredoka';src:url(assets/fonts/Fredoka.ttf) format('truetype');font-weight:300 700;font-display:swap}
+:root{
+  --pink:#ff5caa; --lpink:#ffcde6; --lil:#b98cff; --purp:#843cd2; --gold:#f0be28;
+  --mint:#78e6c8; --sky:#78c8ff; --dark:#46146e; --cream:#fffad2; --bg:#fff0f8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:'Fredoka',system-ui,sans-serif;color:var(--dark);background-color:var(--bg);
+  background-image:radial-gradient(#ffd6ec 22%,transparent 24%),radial-gradient(#ffd6ec 22%,transparent 24%);
+  background-size:56px 56px;background-position:0 0,28px 28px;
+  overflow-x:hidden;-webkit-tap-highlight-color:transparent;
+}
+body.locked{overflow:hidden}
+
+/* floating 90s stickers in the background */
+.floaties{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.floaties span{position:absolute;bottom:-60px;font-size:28px;animation:rise linear infinite;opacity:.85}
+@keyframes rise{to{transform:translateY(-120vh) rotate(360deg)}}
+
+/* ---------- INTRO / ENVELOPE ---------- */
+#intro{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:16px;transition:opacity .7s ease,visibility .7s}
+#intro.gone{opacity:0;visibility:hidden}
+.hello{text-align:center}
+.hello small{display:block;font-family:'Bungee';font-size:14px;letter-spacing:2px;color:var(--purp);opacity:.8}
+.hello h1{font-family:'Pacifico';font-weight:400;font-size:clamp(30px,8vw,42px);color:var(--pink);
+  text-shadow:3px 3px 0 var(--cream),5px 6px 0 var(--dark)}
+.envelope{position:relative;width:min(84vw,380px);aspect-ratio:1.5;cursor:pointer;perspective:1400px;border:0;background:none;
+  animation:wiggle 2.6s ease-in-out infinite;filter:drop-shadow(6px 10px 0 rgba(70,20,110,.25))}
+.envelope.open{animation:none}
+@keyframes wiggle{0%,80%,100%{transform:rotate(0)}84%{transform:rotate(-3deg)}88%{transform:rotate(3deg)}92%{transform:rotate(-2deg)}96%{transform:rotate(1deg)}}
+.env-back{position:absolute;inset:0;background:#a777f0;border-radius:14px}
+.letter{position:absolute;left:6%;right:6%;top:6%;height:88%;z-index:2;background:#fff;border-radius:10px;
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:10%;
+  background-image:repeating-linear-gradient(0deg,transparent 0 22px,#ffe3f1 22px 24px);
+  transition:transform 1s cubic-bezier(.2,.9,.25,1) .55s}
+.letter b{font-family:'Pacifico';font-weight:400;color:var(--purp);font-size:clamp(22px,6vw,30px)}
+.letter i{font-style:normal;font-family:'Bungee';color:var(--pink);font-size:clamp(28px,8vw,40px);line-height:1}
+.envelope.open .letter{transform:translateY(-62%)}
+.env-front{position:absolute;inset:0;z-index:3;width:100%;height:100%}
+.flap{position:absolute;left:0;top:0;width:100%;height:62%;z-index:4;transform-origin:top center;
+  transition:transform .6s ease-in,z-index 0s linear .32s}
+.envelope.open .flap{transform:rotateX(180deg);z-index:1}
+.seal{position:absolute;left:50%;top:62%;z-index:5;width:76px;height:76px;transform:translate(-50%,-50%);
+  border-radius:50%;display:grid;place-items:center;
+  background:radial-gradient(circle at 35% 30%,#ff9ccc,var(--pink) 55%,#d23c8c);
+  box-shadow:0 0 0 5px #ffb3d6,0 6px 0 3px rgba(70,20,110,.35);transition:opacity .25s,transform .3s}
+.seal svg{width:38px;height:38px}
+.envelope.open .seal{opacity:0;transform:translate(-50%,-50%) scale(.4)}
+.tap{font-family:'Bungee';font-size:15px;letter-spacing:1px;color:#fff;background:var(--purp);padding:10px 18px;border-radius:999px;
+  box-shadow:0 4px 0 var(--dark);animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.07)}}
+
+/* ---------- INVITATION ---------- */
+#invite{position:relative;z-index:5;display:flex;justify-content:center;padding:28px 16px 48px;opacity:0}
+#invite.show{opacity:1}
+.frame{position:relative;width:100%;max-width:470px;padding:22px}
+.frame::before{content:"";position:absolute;inset:0;border-radius:40px;
+  background:
+   radial-gradient(circle,var(--lil) 66%,transparent 68%) 0 0/34px 34px repeat-x,
+   radial-gradient(circle,var(--lil) 66%,transparent 68%) 0 100%/34px 34px repeat-x,
+   radial-gradient(circle,var(--lil) 66%,transparent 68%) 0 0/34px 34px repeat-y,
+   radial-gradient(circle,var(--lil) 66%,transparent 68%) 100% 0/34px 34px repeat-y;}
+.frame::after{content:"";position:absolute;inset:12px;border-radius:30px;background:var(--lil)}
+.card{position:relative;z-index:1;background:#fffafd;border-radius:24px;padding:34px 18px 30px;text-align:center;overflow:hidden}
+
+.reveal{opacity:0;transform:translateY(24px) scale(.96)}
+#invite.show .reveal{animation:pop .7s cubic-bezier(.2,1.4,.4,1) forwards;animation-delay:calc(var(--d,0) * 1s)}
+@keyframes pop{to{opacity:1;transform:none}}
+
+.kicker{font-family:'Pacifico';font-size:clamp(28px,8vw,38px);color:var(--pink);text-shadow:2px 2px 0 var(--cream),4px 5px 0 var(--dark)}
+
+.hero{position:relative;margin:18px auto 6px;width:min(66vw,260px);aspect-ratio:1}
+.ring{position:absolute;inset:-14px;border-radius:50%;
+  background:conic-gradient(var(--purp),var(--lil),#e9d4ff,var(--purp),var(--pink),var(--purp));
+  animation:spin 6s linear infinite;box-shadow:6px 8px 0 var(--dark)}
+.ring::after{content:"";position:absolute;inset:0;border-radius:50%;
+  background-image:radial-gradient(#fff 1px,transparent 1.6px);background-size:7px 7px;opacity:.6}
+@keyframes spin{to{transform:rotate(360deg)}}
+.photo{position:absolute;inset:0;border-radius:50%;border:6px solid #fff;background:#ddd center/cover no-repeat;z-index:1}
+.badge{position:absolute;right:-18px;top:-6px;z-index:2;width:78px;height:78px;border-radius:50%;background:var(--pink);
+  border:4px solid #fff;box-shadow:3px 4px 0 var(--dark);display:grid;place-items:center;line-height:.9;
+  font-family:'Bungee';color:#fff;font-size:14px;animation:bob 2.4s ease-in-out infinite}
+.badge b{display:block;font-size:30px;color:var(--gold);-webkit-text-stroke:1.5px var(--dark)}
+.sticker{position:absolute;font-size:34px;z-index:2;animation:bob 3s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-8px) rotate(4deg)}}
+
+.title-row{position:relative;margin-top:14px}
+.heroine{position:absolute;top:0;width:78px;animation:fly 2.8s ease-in-out infinite}
+.heroine.l{left:-10px}.heroine.r{right:-10px;animation-delay:-1.4s}
+@keyframes fly{50%{transform:translateY(-12px) rotate(-3deg)}}
+.glitter{font-family:'Pacifico';font-weight:400;line-height:1.15;display:inline-block;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  background-size:200% 200%;animation:shine 4s linear infinite;
+  filter:drop-shadow(2px 0 0 var(--cream)) drop-shadow(-2px 0 0 var(--cream)) drop-shadow(0 2px 0 var(--cream)) drop-shadow(0 -2px 0 var(--cream)) drop-shadow(3px 4px 0 var(--dark))}
+@keyframes shine{to{background-position:200% 200%}}
+.gold{background-image:radial-gradient(#fff6 .8px,transparent 1.2px),linear-gradient(120deg,#e0a800,#ffe27a,#f0be28,#fff0b0,#e0a800);
+  background-size:9px 9px,200% 200%}
+.violet{background-image:radial-gradient(#fff6 .8px,transparent 1.2px),linear-gradient(120deg,#6a24c0,#c79bff,#843cd2,#e2c8ff,#6a24c0);
+  background-size:9px 9px,200% 200%}
+.mis{font-size:clamp(36px,10vw,50px)}
+.num{font-family:'Bungee';font-size:clamp(50px,14vw,70px);margin-left:6px;vertical-align:-4px}
+.anitos{display:block;font-size:clamp(38px,11vw,54px);margin-top:-6px}
+.name{display:block;font-size:clamp(54px,16vw,82px);margin-top:2px}
+
+.countdown{display:flex;justify-content:center;gap:8px;margin:18px 0 6px}
+.countdown div{background:#fff;border:3px solid var(--lil);border-radius:16px;min-width:66px;padding:8px 4px;box-shadow:3px 4px 0 var(--dark)}
+.countdown b{display:block;font-family:'Bungee';font-size:24px;color:var(--purp)}
+.countdown span{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--pink)}
+.today{font-family:'Bungee';color:var(--pink);font-size:18px;margin:16px 0 4px}
+
+.info{margin:18px 0 0;background:#fff;border:4px solid var(--pink);border-radius:26px;padding:8px 14px;box-shadow:5px 6px 0 var(--dark);text-align:left}
+.row{display:flex;gap:12px;align-items:flex-start;padding:12px 4px;border-bottom:2px dashed #f3d5ff}
+.row:last-child{border-bottom:0}
+.ico{flex:0 0 44px;height:44px;border-radius:14px;display:grid;place-items:center;font-size:22px}
+.row h3{font-family:'Pacifico';font-weight:400;font-size:20px;line-height:1.2}
+.row p{font-weight:600;font-size:17px;line-height:1.3}
+
+.actions{display:grid;gap:12px;margin-top:22px}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;font-family:'Bungee';font-size:15px;letter-spacing:.5px;
+  color:#fff;padding:15px 16px;border-radius:18px;box-shadow:0 5px 0 var(--dark);transition:transform .1s,box-shadow .1s}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--dark)}
+.btn.pink{background:var(--pink)}.btn.purp{background:var(--purp)}.btn.mint{background:#1fb98f}
+.bye{font-family:'Pacifico';font-size:30px;color:var(--pink);margin-top:24px;text-shadow:2px 2px 0 var(--cream),3px 4px 0 var(--dark)}
+.toys{font-size:28px;letter-spacing:6px;margin-top:6px}
+
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:30}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition-duration:.01s!important}}
+</style>
+</head>
+<body class="locked">
+<div class="floaties" id="floaties" aria-hidden="true"></div>
+<canvas id="confetti"></canvas>
+
+<!-- SOBRE -->
+<section id="intro">
+  <div class="hello">
+    <small>TIENES UNA INVITACIÓN</small>
+    <h1>¡Para ti!</h1>
+  </div>
+  <button class="envelope" id="envelope" aria-label="Abrir invitación">
+    <div class="env-back"></div>
+    <div class="letter"><b>Mis 30 Añitos</b><i>ANDREITA</i></div>
+    <svg class="env-front" viewBox="0 0 300 200" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 0 L150 112 L0 200Z" fill="#c9a6ff"/>
+      <path d="M300 0 L150 112 L300 200Z" fill="#c9a6ff"/>
+      <path d="M0 200 L150 96 L300 200Z" fill="#dcc4ff"/>
+      <path d="M0 200 L150 96 L300 200" fill="none" stroke="#a777f0" stroke-width="2"/>
+    </svg>
+    <svg class="flap" viewBox="0 0 300 124" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 0 L300 0 L150 124Z" fill="#b48aff" stroke="#9a6ae8" stroke-width="2"/>
+    </svg>
+    <div class="seal"><svg viewBox="0 0 24 24"><path fill="#fff" d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.7 4.5c2.1 0 3.6 1.2 4.3 2.6.7-1.4 2.2-2.6 4.3-2.6 3.7 0 5.8 3.9 4.3 7.3C19.5 16.4 12 21 12 21z"/></svg></div>
+  </button>
+  <div class="tap">✨ TOCA EL SOBRE ✨</div>
+</section>
+
+<!-- INVITACIÓN -->
+<main id="invite" aria-live="polite">
+  <div class="frame">
+    <article class="card">
+      <div class="kicker reveal" style="--d:.1">¡Estás invitad@!</div>
+
+      <div class="hero reveal" style="--d:.3">
+        <div class="ring"></div>
+        <div class="photo" style="background-image:url('assets/andreita.jpg')" role="img" aria-label="Foto de Andreita"></div>
+        <div class="badge">MIS<b>30</b></div>
+        <span class="sticker" style="left:-34px;top:30px">🧸</span>
+        <span class="sticker" style="right:-36px;bottom:40px;animation-delay:-1s">🍼</span>
+        <span class="sticker" style="left:-26px;bottom:-4px;animation-delay:-2s">🦋</span>
+        <span class="sticker" style="right:24px;bottom:-26px;animation-delay:-.5s">🎀</span>
+      </div>
+
+      <div class="title-row">
+        <div class="heroine l reveal" style="--d:.7" id="h1"></div>
+        <div class="heroine r reveal" style="--d:.8" id="h2"></div>
+        <div class="reveal" style="--d:.5"><span class="glitter gold mis">Mis</span><span class="glitter violet num">30</span></div>
+        <span class="glitter gold anitos reveal" style="--d:.6">Añitos</span>
+        <span class="glitter violet name reveal" style="--d:.8">Andreita</span>
+      </div>
+
+      <div class="reveal" style="--d:1" id="cd"></div>
+
+      <div class="info reveal" style="--d:1.1">
+        <div class="row"><div class="ico" style="background:#ffe0ef">📅</div><div><h3 style="color:var(--pink)">Fecha</h3><p>Jueves 01 de octubre, 2026</p></div></div>
+        <div class="row"><div class="ico" style="background:#efe2ff">⏰</div><div><h3 style="color:var(--purp)">Hora</h3><p>7:00 p.m.</p></div></div>
+        <div class="row"><div class="ico" style="background:#dcf7ef">📍</div><div><h3 style="color:#0f9a8a">Lugar</h3><p>Mz C11 Lote 3, Nueva Esparta<br>Chorrillos</p></div></div>
+      </div>
+
+      <div class="actions reveal" style="--d:1.25">
+        <a class="btn pink" id="wa" target="_blank" rel="noopener">💬 Confirmar asistencia</a>
+        <a class="btn purp" id="maps" target="_blank" rel="noopener">📍 Cómo llegar</a>
+        <a class="btn mint" id="cal" target="_blank" rel="noopener">📅 Agendar fecha</a>
+      </div>
+
+      <div class="bye reveal" style="--d:1.4">¡No faltes!</div>
+      <div class="toys reveal" style="--d:1.5">🍼🧸🎀⭐🦋</div>
+    </article>
+  </div>
+</main>
+
+<script>
+/* ====== CONFIGURA AQUÍ ====== */
+const CONFIG = {
+  // Número de WhatsApp para confirmar (con código de país, sin + ni espacios). Ej: "51987654321"
+  whatsapp: "",
+  fechaISO: "2026-10-01T19:00:00-05:00",
+  direccion: "Mz C11 Lote 3, Nueva Esparta, Chorrillos, Lima, Perú",
+};
+/* ============================ */
+
+const msg = "¡Hola! Confirmo mi asistencia a los 30 añitos de Andreita 💜🎉";
+document.getElementById('wa').href = "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(msg);
+document.getElementById('maps').href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(CONFIG.direccion);
+document.getElementById('cal').href = "https://calendar.google.com/calendar/render?action=TEMPLATE"
+  + "&text=" + encodeURIComponent("Mis 30 Añitos · Andreita 🎉")
+  + "&dates=20261002T000000Z/20261002T050000Z"
+  + "&details=" + encodeURIComponent("¡Fiesta de los 30 añitos de Andreita!")
+  + "&location=" + encodeURIComponent(CONFIG.direccion);
+
+/* Superheroínas originales (SVG) */
+function heroine(suit, cape, mask, hair, flip){
+  return `<svg viewBox="0 0 120 170" style="transform:scaleX(${flip})" aria-hidden="true">
+  <g stroke="#46146e" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M42 70 L78 70 L112 138 L92 130 L80 150 L30 140Z" fill="${cape}"/>
+    <rect x="47" y="118" width="10" height="30" fill="#ffdab9"/><rect x="63" y="118" width="10" height="30" fill="#ffdab9"/>
+    <ellipse cx="51" cy="152" rx="11" ry="8" fill="${mask}"/><ellipse cx="69" cy="152" rx="11" ry="8" fill="${mask}"/>
+    <path d="M44 70 L76 70 L86 124 L34 124Z" fill="${suit}"/>
+    <rect x="38" y="98" width="44" height="8" fill="#f0be28"/>
+    <path d="M60 76 l4 8 9 1 -7 6 2 9 -8 -5 -8 5 2 -9 -7 -6 9 -1z" fill="#f0be28" stroke-width="2"/>
+    <path d="M76 76 L96 40" stroke-width="12" stroke="#46146e"/><path d="M76 76 L96 40" stroke-width="7" stroke="${suit}"/>
+    <circle cx="98" cy="36" r="8" fill="#ffdab9"/>
+    <path d="M44 78 L30 100" stroke-width="12" stroke="#46146e"/><path d="M44 78 L30 100" stroke-width="7" stroke="${suit}"/>
+    <circle cx="28" cy="104" r="7" fill="#ffdab9"/>
+    <ellipse cx="60" cy="42" rx="29" ry="30" fill="${hair}"/>
+    <ellipse cx="60" cy="46" rx="23" ry="24" fill="#ffdab9"/>
+    <path d="M36 40 Q60 6 84 40 Q72 28 60 30 Q48 28 36 40Z" fill="${hair}"/>
+    <path d="M38 30 Q60 12 82 30" fill="none" stroke="${cape}" stroke-width="5"/>
+    <rect x="37" y="40" width="46" height="13" rx="6" fill="${mask}"/>
+  </g>
+  <ellipse cx="51" cy="46.5" rx="5" ry="3.6" fill="#fff"/><ellipse cx="69" cy="46.5" rx="5" ry="3.6" fill="#fff"/>
+  <circle cx="51" cy="46.5" r="2.4" fill="#46146e"/><circle cx="69" cy="46.5" r="2.4" fill="#46146e"/>
+  <ellipse cx="45" cy="58" rx="4" ry="2.4" fill="#ffa0b4"/><ellipse cx="75" cy="58" rx="4" ry="2.4" fill="#ffa0b4"/>
+  <path d="M54 59 Q60 65 66 59" fill="none" stroke="#46146e" stroke-width="2.5" stroke-linecap="round"/>
+  </svg>`;
+}
+document.getElementById('h1').innerHTML = heroine('#843cd2','#ff5caa','#ff5caa','#5a321e',-1);
+document.getElementById('h2').innerHTML = heroine('#ff5caa','#b98cff','#843cd2','#281914',1);
+
+/* Countdown */
+const target = new Date(CONFIG.fechaISO).getTime();
+const cd = document.getElementById('cd');
+function tick(){
+  const diff = target - Date.now();
+  if (diff <= 0){
+    cd.innerHTML = diff > -6*3600e3 ? '<div class="today">🎉 ¡La fiesta es HOY! 🎉</div>' : '<div class="today">💜 ¡Gracias por celebrar conmigo! 💜</div>';
+    return;
+  }
+  const d=Math.floor(diff/864e5), h=Math.floor(diff%864e5/36e5), m=Math.floor(diff%36e5/6e4), s=Math.floor(diff%6e4/1e3);
+  const box=(n,l)=>`<div><b>${String(n).padStart(2,'0')}</b><span>${l}</span></div>`;
+  cd.innerHTML = `<div class="countdown">${box(d,'días')}${box(h,'horas')}${box(m,'min')}${box(s,'seg')}</div>`;
+}
+tick(); setInterval(tick,1000);
+
+/* Floating stickers */
+const fl = document.getElementById('floaties');
+const icons = ['⭐','💜','🦋','✨','🎀','🍼','🧸','💖','🌸'];
+for (let i=0;i<16;i++){
+  const s=document.createElement('span');
+  s.textContent=icons[i%icons.length];
+  s.style.left=Math.random()*100+'vw';
+  s.style.fontSize=(18+Math.random()*20)+'px';
+  s.style.animationDuration=(12+Math.random()*14)+'s';
+  s.style.animationDelay=(-Math.random()*20)+'s';
+  fl.appendChild(s);
+}
+
+/* Confetti */
+const cv=document.getElementById('confetti'), cx=cv.getContext('2d');
+let parts=[];
+function resize(){cv.width=innerWidth*devicePixelRatio;cv.height=innerHeight*devicePixelRatio;cx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0)}
+resize(); addEventListener('resize',resize);
+function burst(){
+  const cols=['#ff5caa','#b98cff','#f0be28','#78e6c8','#78c8ff','#843cd2'];
+  for(let i=0;i<180;i++){
+    parts.push({x:innerWidth/2,y:innerHeight*.45,vx:(Math.random()-.5)*14,vy:-Math.random()*14-4,
+      w:6+Math.random()*7,h:8+Math.random()*10,r:Math.random()*6,vr:(Math.random()-.5)*.3,
+      c:cols[i%cols.length],shape:Math.random()<.12?'heart':'rect'});
+  }
+  requestAnimationFrame(draw);
+}
+function draw(){
+  cx.clearRect(0,0,innerWidth,innerHeight);
+  parts.forEach(p=>{p.vy+=.32;p.vx*=.99;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;
+    cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;
+    if(p.shape==='heart'){cx.font=(p.w*1.4)+'px serif';cx.fillText('💖',-p.w,p.w)}else cx.fillRect(-p.w/2,-p.h/2,p.w,p.h);
+    cx.restore();});
+  parts=parts.filter(p=>p.y<innerHeight+40);
+  if(parts.length) requestAnimationFrame(draw); else cx.clearRect(0,0,innerWidth,innerHeight);
+}
+
+/* Open envelope */
+const env=document.getElementById('envelope');
+env.addEventListener('click',()=>{
+  if(env.classList.contains('open')) return;
+  env.classList.add('open');
+  if (navigator.vibrate) navigator.vibrate(40);
+  setTimeout(burst,900);
+  setTimeout(()=>{
+    document.getElementById('intro').classList.add('gone');
+    document.getElementById('invite').classList.add('show');
+    document.body.classList.remove('locked');
+    window.scrollTo(0,0);
+  },1900);
+});
+</script>
+</body>
+</html>
